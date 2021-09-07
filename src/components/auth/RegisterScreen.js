@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import validator from "validator";
+import { startRegisterWithEmail } from "../../actions/auth";
 import { removeError, setError } from "../../actions/ui";
 import useForm from "../../hooks/useForm";
 
@@ -21,7 +22,7 @@ const RegisterScreen = () => {
     event.preventDefault();
 
     if (isFormValid()) {
-      console.log("yee");
+      startRegisterWithEmail(email, password, name);
     }
   };
 
