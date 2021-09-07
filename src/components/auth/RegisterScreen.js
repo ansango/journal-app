@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import validator from "validator";
 import useForm from "../../hooks/useForm";
 
 const RegisterScreen = () => {
@@ -17,14 +18,29 @@ const RegisterScreen = () => {
   const handleRegister = (event) => {
     event.preventDefault();
 
-    
+    if (isFormValid) {
+      console.log("yee");
+    }
+
     //dispatch(startLoginEmailPassword(email, password));
+  };
+
+  const isFormValid = () => {
+    if (name.trim().length === 0) {
+      return false;
+    } else if (validator.isEmail(email)) {
+      return false;
+    } else if (password !== password2 || password.length < 5) {
+      return false;
+    }
+    return true;
   };
 
   return (
     <>
       <h3 className="auth__title">Register</h3>
       <form onSubmit={handleRegister}>
+        <div className="auth__alert-error">Holi</div>
         <input
           type="text"
           placeholder="Name"
