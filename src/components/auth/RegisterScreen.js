@@ -22,8 +22,6 @@ const RegisterScreen = () => {
     if (isFormValid()) {
       console.log("yee");
     }
-
-    //dispatch(startLoginEmailPassword(email, password));
   };
 
   const isFormValid = () => {
@@ -37,7 +35,7 @@ const RegisterScreen = () => {
       dispatch(setError("Passwords are wrong"));
       return false;
     }
-    dispatch(removeError())
+    dispatch(removeError());
     return true;
   };
 
