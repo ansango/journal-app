@@ -5,6 +5,7 @@ import {
   signInWithEmailAndPassword,
   updateProfile,
 } from "@firebase/auth";
+import Swal from "sweetalert2";
 import { googleAuthProvider } from "../firebase/firebase-config";
 import { types } from "../types/types";
 
@@ -18,9 +19,10 @@ export const startLoginEmailPassword = (email, password) => {
         dispatch(login(user.uid, user.displayName));
         dispatch(finishLoading());
       })
-      .catch((err) => {
-        console.log(err);
+      .catch((error) => {
+        console.log(error.message);
         dispatch(finishLoading());
+        Swal.fire("Error", error.message, "error");
       });
   };
 };
@@ -37,8 +39,8 @@ export const startRegisterWithEmailPassword = (email, password, name) => {
         dispatch(finishLoading());
       })
       .catch((error) => {
-        console.log(error);
         dispatch(finishLoading());
+        Swal.fire("Error", error.message, "error");
       });
   };
 };
@@ -52,8 +54,8 @@ export const startGoogleLogin = () => {
         dispatch(finishLoading());
       })
       .catch((error) => {
-        console.log(error);
         dispatch(finishLoading());
+        Swal.fire("Error", error.message, "error");
       });
   };
 };

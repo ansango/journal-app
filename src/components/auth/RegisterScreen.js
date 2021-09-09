@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 import validator from "validator";
 import { startRegisterWithEmailPassword } from "../../actions/auth";
 import { removeError, setError } from "../../actions/ui";
@@ -7,7 +8,7 @@ import useForm from "../../hooks/useForm";
 
 const RegisterScreen = () => {
   const dispatch = useDispatch();
-  const { msgError, loading } = useSelector((state) => state.ui);
+  const { loading } = useSelector((state) => state.ui);
 
   const [formValues, handleInputChange] = useForm({
     name: "Anibal",
@@ -29,12 +30,15 @@ const RegisterScreen = () => {
   const isFormValid = () => {
     if (name.trim().length === 0) {
       dispatch(setError("Name is required"));
+      Swal.fire("Error", "Name is required", "error");
       return false;
     } else if (!validator.isEmail(email)) {
       dispatch(setError("Email is not valid"));
+      Swal.fire("Error", "Email is not valid", "error");
       return false;
     } else if (password !== password2 || password.length < 5) {
       dispatch(setError("Passwords are wrong"));
+      Swal.fire("Error", "Passwords are wrong", "error");
       return false;
     }
     dispatch(removeError());
@@ -45,7 +49,6 @@ const RegisterScreen = () => {
     <>
       <h3 className="auth__title">Register</h3>
       <form onSubmit={handleRegister}>
-        {msgError && <div className="auth__alert-error">{msgError}</div>}
         <input
           type="text"
           placeholder="Name"
