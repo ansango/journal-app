@@ -4,7 +4,7 @@ const initialState = {
     uid: null,
     name: null
 };
-export const authReducer = (state = initialState, { type, payload }) => {
+const authReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case types.login:
       return {
@@ -17,3 +17,5 @@ export const authReducer = (state = initialState, { type, payload }) => {
       return state;
   }
 };
+
+export default authReducer;

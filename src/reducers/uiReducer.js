@@ -4,7 +4,8 @@ const initialState = {
   loading: false,
   msgError: null,
 };
-export const uiReducer = (state = initialState, { type, payload }) => {
+
+const uiReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case types.uiSetError:
       return {
@@ -31,3 +32,5 @@ export const uiReducer = (state = initialState, { type, payload }) => {
       return state;
   }
 };
+
+export default uiReducer;
