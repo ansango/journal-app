@@ -12,21 +12,36 @@ const notesReducer = (state = initialState, { type, payload }) => {
         ...state,
         active: { ...payload },
       };
-
+    case types.notesAddNew:
+      return {
+        ...state,
+        notes: [payload, ...state.notes],
+      };
     case types.notesLoad:
       return {
         ...state,
         notes: [...payload],
       };
 
-    case types.notesUpdated:
+    case types.notesUpdate:
       return {
         ...state,
         notes: state.notes.map((note) =>
           note.id === payload.id ? payload.note : note
         ),
       };
-
+    case types.notesDelete:
+      return {
+        ...state,
+        active: null,
+        notes: state.notes.filter((note) => note.id !== payload),
+      };
+    case types.notesLogoutCleaning:
+      return {
+        ...state,
+        active: null,
+        notes: [],
+      };
     default:
       return state;
   }
