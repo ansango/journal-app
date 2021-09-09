@@ -15,6 +15,7 @@ export const startNewNote = () => {
     };
     const _doc = await addDoc(collection(db, `${uid}/journal/notes`), newNote);
     dispatch(activeNote(_doc.id, newNote));
+    dispatch(startLoadingNotes(uid));
   };
 };
 
