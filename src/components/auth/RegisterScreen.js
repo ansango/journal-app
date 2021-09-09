@@ -7,7 +7,7 @@ import useForm from "../../hooks/useForm";
 
 const RegisterScreen = () => {
   const dispatch = useDispatch();
-  const { msgError } = useSelector((state) => state.ui);
+  const { msgError, loading } = useSelector((state) => state.ui);
 
   const [formValues, handleInputChange] = useForm({
     name: "Anibal",
@@ -80,7 +80,11 @@ const RegisterScreen = () => {
           value={password2}
           onChange={handleInputChange}
         />
-        <button className="btn btn-primary btn-block mb-5" type="submit">
+        <button
+          className="btn btn-primary btn-block mb-5"
+          type="submit"
+          disabled={loading}
+        >
           Register
         </button>
 
