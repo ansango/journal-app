@@ -1,5 +1,5 @@
 import { getAuth, onAuthStateChanged } from "@firebase/auth";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import {
   BrowserRouter as Router,
@@ -15,13 +15,22 @@ const auth = getAuth();
 
 const AppRouter = () => {
   const dispatch = useDispatch();
+  const [checking, setChecking] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user?.uid) {
         dispatch(login(user.uid, user.displayName));
+        setIsLoggedIn(true);
       }
+      setChecking(false);
     });
-  }, [dispatch]);
+  }, [dispatch, setChecking, setIsLoggedIn]);
+
+  if (checking) {
+    return <h1>Cargando...</h1>;
+  }
+
   return (
     <Router>
       <div>
