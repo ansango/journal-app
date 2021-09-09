@@ -1,3 +1,5 @@
+import { types } from "../types/types";
+
 const initialState = {
   notes: [],
   active: null,
@@ -5,31 +7,12 @@ const initialState = {
 
 const notesReducer = (state = initialState, { type, payload }) => {
   switch (type) {
-    case "ADD_NOTE":
+    case types.notesActive:
       return {
         ...state,
-        notes: [...state.notes, payload],
+        active: { ...payload },
       };
-    case "EDIT_NOTE":
-      return {
-        ...state,
-        notes: state.notes.map((note) => {
-          if (note.id === payload.id) {
-            return payload;
-          }
-          return note;
-        }),
-      };
-    case "DELETE_NOTE":
-      return {
-        ...state,
-        notes: state.notes.filter((note) => note.id !== payload),
-      };
-    case "SET_ACTIVE_NOTE":
-      return {
-        ...state,
-        active: payload,
-      };
+
     default:
       return state;
   }
