@@ -63,6 +63,15 @@ export const login = (uid, displayName) => ({
   payload: { uid, displayName },
 });
 
+export const startLogout = () => {
+  return async (dispatch) => {
+    auth.signOut();
+    dispatch(logout());
+  };
+};
+
+export const logout = () => ({ type: types.logout });
+
 export const startLoading = () => ({
   type: types.uiStartLoading,
 });
