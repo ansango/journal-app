@@ -1,14 +1,18 @@
-const JournalEntry = ({ title, body, date }) => {
+import moment from "moment";
+
+const JournalEntry = ({ id, date, title, body, url }) => {
+  const dateFormatted = moment(date);
   return (
     <div className="journal__entry pointer">
-      <div
-        className="journal__entry-picture"
-        style={{
-          backgroundSize: "cover",
-          backgroundImage:
-            "url(https://earthsky.org/upl/2018/12/comet-wirtanen-Jack-Fusco-dec-2018-Anza-Borrego-desert-CA-e1544613895713.jpg)",
-        }}
-      ></div>
+      {url && (
+        <div
+          className="journal__entry-picture"
+          style={{
+            backgroundSize: "cover",
+            backgroundImage: `url(${url})`,
+          }}
+        ></div>
+      )}
 
       <div className="journal__entry-body">
         <p className="journal__entry-title">{title}</p>
@@ -16,8 +20,8 @@ const JournalEntry = ({ title, body, date }) => {
       </div>
 
       <div className="journal__entry-date-box">
-        <span>Monday</span>
-        <h4>28</h4>
+        <span>{dateFormatted.format("dddd")}</span>
+        <h4>{dateFormatted.format("Do")}</h4>
       </div>
     </div>
   );
