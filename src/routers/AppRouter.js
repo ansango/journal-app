@@ -1,15 +1,12 @@
 import { getAuth, onAuthStateChanged } from "@firebase/auth";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch } from "react-router-dom";
+import AuthRouter from "./AuthRouter";
+import PrivateRoute from "./PrivateRoute";
 import { login } from "../actions/auth";
 import JournalScreen from "../components/journal/JournalScreen";
-import AuthRouter from "./AuthRouter";
+import PublicRoute from "./PublicRoute";
 
 const auth = getAuth();
 
@@ -22,6 +19,8 @@ const AppRouter = () => {
       if (user?.uid) {
         dispatch(login(user.uid, user.displayName));
         setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
       }
       setChecking(false);
     });
@@ -35,9 +34,17 @@ const AppRouter = () => {
     <Router>
       <div>
         <Switch>
-          <Route path="/auth" component={AuthRouter} />
-          <Route exact path="/" component={JournalScreen} />
-          <Redirect to="auth/login" />
+          <PublicRoute
+            path="/auth"
+            component={AuthRouter}
+            isAuth={isLoggedIn}
+          />
+          <PrivateRoute
+            exact
+            path="/"
+            component={JournalScreen}
+            isAuth={isLoggedIn}
+          />
         </Switch>
       </div>
     </Router>
