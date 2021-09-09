@@ -12,8 +12,8 @@ const RegisterScreen = () => {
   const [formValues, handleInputChange] = useForm({
     name: "Anibal",
     email: "ansango@ansango.com",
-    password: "1234",
-    password2: "1234",
+    password: "123456789",
+    password2: "123456789",
   });
 
   const { name, email, password, password2 } = formValues;
@@ -22,7 +22,7 @@ const RegisterScreen = () => {
     event.preventDefault();
 
     if (isFormValid()) {
-      startRegisterWithEmail(email, password, name);
+      dispatch(startRegisterWithEmail(email, password, name));
     }
   };
 

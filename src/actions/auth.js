@@ -19,17 +19,24 @@ export const startLoginEmailPassword = (email, password) => {
 
 export const startRegisterWithEmail = (email, password, name) => {
   return (dispatch) => {
-    createUserWithEmailAndPassword(auth, email, password).then(({ user }) => {
-      console.log(user);
-    });
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(async ({ user }) => {
+        await updateProfile(user, {
+          displayName: name,
+        });
+        dispatch(login(user.uid, user.displayName));
+      })
+      .catch((error) => console.log(error));
   };
 };
 
 export const startGoogleLogin = () => {
   return (dispatch) => {
-    signInWithPopup(auth, googleAuthProvider).then(({ user }) => {
-      dispatch(login(user.uid, user.displayName));
-    });
+    signInWithPopup(auth, googleAuthProvider)
+      .then(({ user }) => {
+        dispatch(login(user.uid, user.displayName));
+      })
+      .catch((error) => console.log(error));;
   };
 };
 
